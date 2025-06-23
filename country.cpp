@@ -40,7 +40,24 @@ TEST(CountryTest, DensityCalculation) {
     return true;
 }
 
+TEST(CountryTest, CapitalUpdate) {
+    Country c("Examplestan", 3000000, 75000, "Old Capital");
+    c.setCapital("New Capital");
+    ASSERT_EQ(c.getCapital(), "New Capital");
+    return true;
+}
+
+TEST(CountryTest, AreaChangeAffectsDensity) {
+    Country c("Densityland", 2000000, 40000, "Density City");
+    double oldDensity = c.populationDensity();
+    c.setArea(50000);
+    ASSERT_TRUE(c.populationDensity() < oldDensity);
+    return true;
+}
+
 int main() {
     RUN_TEST(CountryTest, DensityCalculation);
+    RUN_TEST(CountryTest, CapitalUpdate);
+    RUN_TEST(CountryTest, AreaChangeAffectsDensity);
     return 0;
 }
