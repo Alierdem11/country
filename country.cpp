@@ -55,9 +55,31 @@ TEST(CountryTest, AreaChangeAffectsDensity) {
     return true;
 }
 
+TEST(CountryTest, PopulationUpdate) {
+    Country c("Popland", 1000000, 50000, "Pop City");
+    c.setPopulation(2000000);
+    ASSERT_EQ(c.getPopulation(), 2000000);
+    return true;
+}
+
+TEST(CountryTest, ZeroAreaDensity) {
+    Country c("Flatland", 100000, 0, "Flat City");
+    ASSERT_EQ(c.populationDensity(), 0);
+    return true;
+}
+
+TEST(CountryTest, NameAccess) {
+    Country c("Testonia", 4000000, 60000, "Test City");
+    ASSERT_EQ(c.getName(), "Testonia");
+    return true;
+}
+
 int main() {
     RUN_TEST(CountryTest, DensityCalculation);
     RUN_TEST(CountryTest, CapitalUpdate);
     RUN_TEST(CountryTest, AreaChangeAffectsDensity);
+    RUN_TEST(CountryTest, PopulationUpdate);
+    RUN_TEST(CountryTest, ZeroAreaDensity);
+    RUN_TEST(CountryTest, NameAccess);
     return 0;
 }
