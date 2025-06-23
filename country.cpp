@@ -74,6 +74,29 @@ TEST(CountryTest, NameAccess) {
     return true;
 }
 
+TEST(CountryTest, PopulationDensityWithLargeValues) {
+    Country c("Gigantica", 1e9, 5e6, "Mega City");
+    ASSERT_TRUE(std::abs(c.populationDensity() - (1e9 / 5e6)) < 1e-6);
+    return true;
+}
+
+TEST(CountryTest, UpdateAllAttributes) {
+    Country c("OldCountry", 1000000, 200000, "Old Capital");
+    c.setPopulation(1500000);
+    c.setArea(250000);
+    c.setCapital("New Capital");
+    ASSERT_EQ(c.getPopulation(), 1500000);
+    ASSERT_EQ(c.getArea(), 250000);
+    ASSERT_EQ(c.getCapital(), "New Capital");
+    return true;
+}
+
+TEST(CountryTest, PopulationDensityZeroPopulation) {
+    Country c("EmptyLand", 0, 100000, "No City");
+    ASSERT_EQ(c.populationDensity(), 0);
+    return true;
+}
+
 int main() {
     RUN_TEST(CountryTest, DensityCalculation);
     RUN_TEST(CountryTest, CapitalUpdate);
@@ -81,5 +104,8 @@ int main() {
     RUN_TEST(CountryTest, PopulationUpdate);
     RUN_TEST(CountryTest, ZeroAreaDensity);
     RUN_TEST(CountryTest, NameAccess);
+    RUN_TEST(CountryTest, PopulationDensityWithLargeValues);
+    RUN_TEST(CountryTest, UpdateAllAttributes);
+    RUN_TEST(CountryTest, PopulationDensityZeroPopulation);
     return 0;
 }
