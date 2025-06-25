@@ -4,9 +4,11 @@
 #include <cmath>
 #include "test1.h"
 
+class Country;
+
 class CountryAction {
 public:
-    virtual void apply(class Country& c) = 0;
+    virtual void apply(Country& c) = 0;
     virtual std::string description() const = 0;
     virtual ~CountryAction() {}
 };
